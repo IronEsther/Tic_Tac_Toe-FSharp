@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "4w6vulz1VYEMqmkVzN239bgctxkqaAbm3nB/y4/2NuTmy+k1RPZ1YEEfXHlTA7BIYVBs8pA2eY2UY4Icn24P9A==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\David\\OneDrive\\Dokumente\\Unity\\Tic_Tac_Toe-FSharp\\Program\\TicTacToe-Fsharp\\TicTacToe-Fsharp.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\David\\.nuget\\packages\\fsharp.core\\7.0.400\\fsharp.core.7.0.400.nupkg.sha512"
+  ],
+  "logs": []
+}
