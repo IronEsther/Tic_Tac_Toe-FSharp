@@ -1,4 +1,5 @@
 ﻿
+
 type Player = 
     | None
     | X
@@ -34,27 +35,39 @@ let togglePlayer player =
     | O -> X
     | None -> None
 
+let isValidMove (board:Board) row col =
+    row >= 0 && row <= 2 && col >= 0 && col <= 2 && board.[row].[col] = None
+
+let rec getInput prompt =
+    printf "%s" prompt
+    match System.Int32.TryParse(System.Console.ReadLine()) with
+    | (true, value) when value >= 0 && value <= 2 -> value
+    | _ -> 
+        printfn "Gib eine Zahl zwischen 0 und 2 ein"
+        getInput prompt
+
+
 let rec playGame board currentPlayer =
     printBoard board
-    printfn "%A's Turn!" currentPlayer
-    printf "Wähle eine Reihe (0-2): "
-    let row = int (System.Console.ReadLine())
-    printf "Wähle eine Zeile (0-2): "
-    let col = int (System.Console.ReadLine())
-    
-    if row >= 0 && row <= 2 && col >= 0 && col <= 2 && board.[row].[col] = None then
+    printfn "%A ist dran!" currentPlayer
+    let row = getInput "Wähle Zeile (0-2): "
+    let col = getInput "Wähle Reihe (0-2): "
+
+    if isValidMove board row col then
         board.[row].[col] <- currentPlayer
         if hasWon currentPlayer board then
-            printfn "%A Gewinnt!" currentPlayer
+            printfn "%A hat gewonnen!" currentPlayer
         else if Array.forall (fun row -> Array.forall (fun cell -> cell <> None) row) board then
-            printfn "Unentschieden!"
+            printfn "unentschieden!"
         else
             playGame board (togglePlayer currentPlayer)
     else
-        printfn "Du kleiner Rabauke, das ist nicht erlaubt"
+        printfn "Du Rabauke, das ist nicht erlaubt"
         playGame board currentPlayer
 
 [<EntryPoint>]
 let main argv =
     playGame emptyBoard X
     0
+
+    
