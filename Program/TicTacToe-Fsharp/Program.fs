@@ -11,7 +11,7 @@ let emptyBoard =
       [| None; None; None |];
       [| None; None; None |]|]
 
-// Zeigt das aktuelle Spielfeld an
+//Zeigt das aktuelle Spielfeld an
 let printBoard (board: Board) =
     printfn "Aktuelles Spielfeld:\n"
     for row in board do
@@ -22,7 +22,7 @@ let printBoard (board: Board) =
             | O -> printf "O "
         printfn ""
 
-// Überprüft, ob der Spieler gewonnen hat
+//Überprüft, ob der Spieler gewonnen hat
 let hasWon (player: Player) (board: Board) =
     let allSame (line: Player array) = Array.forall (fun cell -> cell = player) line
     let anyRow = board |> Array.exists allSame
@@ -31,18 +31,18 @@ let hasWon (player: Player) (board: Board) =
     let diagonal2 = [| board.[0].[2]; board.[1].[1]; board.[2].[0] |]
     anyRow || anyColumn || allSame diagonal1 || allSame diagonal2
 
-// Wechselt den Spieler
+//Wechselt den Spieler
 let togglePlayer player =
     match player with
     | X -> O
     | O -> X
     | None -> None
 
-// Überprüft, ob ein Zug gültig ist
+//Überprüft, ob ein Zug gültig ist
 let isValidMove (board:Board) row col =
     row >= 0 && row <= 2 && col >= 0 && col <= 2 && board.[row].[col] = None
 
-// Eingabeaufforderung für den Spieler
+//Eingabeaufforderung für den Spieler
 let rec getInput prompt =
     printf "%s" prompt
     match System.Int32.TryParse(System.Console.ReadLine()) with
@@ -51,7 +51,7 @@ let rec getInput prompt =
         printfn "Ungültige Eingabe! Bitte gib eine Zahl zwischen 0 und 2 ein."
         getInput prompt
 
-// Hauptspiellogik
+//Spiellogik
 let rec playGame board currentPlayer =
     printBoard board
     printfn "%A ist dran!" currentPlayer
@@ -70,6 +70,7 @@ let rec playGame board currentPlayer =
         printfn "\nDu kleiner Rabauke, das ist nicht erlaubt."
         playGame board currentPlayer
 
+//Ablauf
 [<EntryPoint>]
 let main argv =
     printfn "Willkommen bei Tic Tac Toe!\n"
